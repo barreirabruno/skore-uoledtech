@@ -1,29 +1,4 @@
-class ContentResource {
-  id?: string
-  published: number
-  name: string
-  description: string
-  type: string
-  createdAt?: Date
-
-  constructor (params: ContentResourceData) {
-    this.id = params.id
-    this.published = params.published
-    this.name = params.name
-    this.description = params.description
-    this.type = params.type
-    this.createdAt = params.createdAt
-  }
-}
-
-type ContentResourceData = {
-  id?: string
-  published: number
-  name: string
-  description: string
-  type: string
-  createdAt?: Date
-}
+import { ContentResource } from '@/domain/entities'
 
 const inputParams = {
   id: 'any_content_resource_input_id',
