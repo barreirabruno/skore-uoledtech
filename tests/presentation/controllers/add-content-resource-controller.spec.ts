@@ -26,6 +26,19 @@ describe('Add Content Resource Controller', () => {
     jest.clearAllMocks()
   })
 
+  it('should call AddContentResourceService with correct params', async () => {
+    const spyAddContentResourceService = jest.spyOn(contentResourceRepository, 'perform')
+    await sut.handle(inputParams)
+    expect(spyAddContentResourceService).toHaveBeenCalled()
+    expect(spyAddContentResourceService).toHaveBeenCalledTimes(1)
+    expect(spyAddContentResourceService).toHaveBeenCalledWith({
+      published: 1,
+      name: 'any_content_resource_input_name',
+      description: 'any_content_resource_input_description',
+      type: 'pdf'
+    })
+  })
+
   it('should return 200 if perform method succeeds', async () => {
     const httpResponse = await sut.handle(inputParams)
 
