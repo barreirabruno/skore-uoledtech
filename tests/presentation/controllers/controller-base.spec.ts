@@ -31,6 +31,10 @@ describe('Controller base', () => {
     jest.clearAllMocks()
   })
 
+  afterAll(() => {
+    jest.clearAllMocks()
+  })
+
   it('should return 500 if perform method fails for any reason', async () => {
     const error = new ServerError(new Error('ANY_INFRA_ERROR'))
     jest.spyOn(sut, 'perform').mockResolvedValueOnce({
