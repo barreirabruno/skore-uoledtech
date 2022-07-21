@@ -42,6 +42,13 @@ class ControllerStub extends Controller {
 describe('Controller base', () => {
   let sut: ControllerStub
 
+  const inputParams = {
+    name: 'any_content_resource_input_name',
+    published: 1,
+    description: 'any_content_resource_input_description',
+    type: 'pdf'
+  }
+
   beforeEach(() => {
     sut = new ControllerStub()
   })
@@ -50,13 +57,21 @@ describe('Controller base', () => {
     jest.clearAllMocks()
   })
 
-  it('should return same result as perform method', async () => {
-    const httpResponse = await sut.handle({
-      name: 'any_content_resource_input_name',
-      published: 1,
-      description: 'any_content_resource_input_description',
-      type: 'pdf'
+  it('should return 500 if perform method fails for any reason', async () => {
+    const error = new ServerError(new Error('ANY_INFRA_ERROR'))
+    jest.spyOn(sut, 'perform').mockResolvedValueOnce({
+      statusCode: 500,
+      data: error
     })
+    const httpResponse = await sut.handle(inputParams)
+    expect(httpResponse).toEqual({
+      statusCode: 500,
+      data: new ServerError(new Error('ANY_INFRA_ERROR'))
+    })
+  })
+
+  it('should return same result as perform method', async () => {
+    const httpResponse = await sut.handle(inputParams)
 
     expect(httpResponse).toEqual(sut.result)
   })
