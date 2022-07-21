@@ -15,7 +15,7 @@ export class AddContentResourceController extends Controller {
       name: 'any_content_resource_input_name',
       published: 1,
       description: 'any_content_resource_input_description',
-      type: 'pdf'
+      type: 'string | pdf | image'
     })
     await this.addContentResourceService.perform(newContentResource)
     return {

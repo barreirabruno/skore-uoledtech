@@ -35,7 +35,7 @@ describe('Add Content Resource Controller', () => {
       published: 1,
       name: 'any_content_resource_input_name',
       description: 'any_content_resource_input_description',
-      type: 'pdf'
+      type: 'string | pdf | image'
     })
   })
 
@@ -48,7 +48,7 @@ describe('Add Content Resource Controller', () => {
         name: 'any_content_resource_input_name',
         published: 1,
         description: 'any_content_resource_input_description',
-        type: 'pdf'
+        type: 'string | pdf | image'
       }
     })
   })
