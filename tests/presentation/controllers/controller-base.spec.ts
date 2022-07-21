@@ -1,32 +1,6 @@
-class ServerError extends Error {
-  constructor (error?: Error) {
-    super('Server failed. Try again soon or contact us')
-    this.name = 'ServerError'
-    this.stack = error?.stack
-  }
-}
-
-type HttpResponse<T = any> = {
-  statusCode: number
-  data: T
-}
-
-const serverError = (error: Error): HttpResponse<Error> => ({
-  statusCode: 500,
-  data: new ServerError(error)
-})
-
-abstract class Controller {
-  abstract perform (httpRequest: any): Promise<HttpResponse>
-
-  async handle (httpRequest: any): Promise<HttpResponse> {
-    try {
-      return await this.perform(httpRequest)
-    } catch (error) {
-      return serverError(error as Error)
-    }
-  }
-}
+import ServerError from '@/domain/entities/errors/server-error'
+import { Controller } from '@/presentation/controllers'
+import { HttpResponse } from '@/presentation/helpers'
 
 class ControllerStub extends Controller {
   result: HttpResponse = {
