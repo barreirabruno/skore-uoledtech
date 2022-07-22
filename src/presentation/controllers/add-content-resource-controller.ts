@@ -11,12 +11,14 @@ export class AddContentResourceController extends Controller {
   }
 
   async perform (httpRequest: any): Promise<HttpResponse<any>> {
+    console.log('[CHANGE FOR LOG][CONTROLLER][HTTPREQUEST][BODY]: ', httpRequest)
     const newContentResource = new ContentResource({
-      name: 'any_content_resource_input_name',
-      published: 1,
-      description: 'any_content_resource_input_description',
-      type: 'string | pdf | image'
+      published: httpRequest.params.published,
+      name: httpRequest.params.name,
+      description: httpRequest.params.description,
+      type: httpRequest.params.type
     })
+    console.log('[CHANGE FOR LOG][CONTROLLER][HTTPREQUEST]: ', newContentResource)
     await this.addContentResourceService.perform(newContentResource)
     return {
       statusCode: 200,
