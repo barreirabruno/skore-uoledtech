@@ -6,5 +6,6 @@ module.exports = {
   url: process.env.DB_URL_PRD,
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
-  database: process.env.DB_DATABASE
+  database: process.env.DB_DATABASE,
+  entities: ['dist/infra/database/postgres/entities/index.js']
 }
