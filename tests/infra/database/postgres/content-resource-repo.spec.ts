@@ -1,77 +1,9 @@
-import { SaveContentResourceRepositoryInterface, LoadContentResourceRepositoryInterface, SaveTransactionRepositoryNamespace, LoadTransactionRepositoryNamespace } from '@/data/contracts/repos/content-resource-repository'
-import { Entity, PrimaryGeneratedColumn, getRepository, Column, CreateDateColumn, UpdateDateColumn, getConnection, Repository } from 'typeorm'
+import { makeFakeDb } from '../../../mocks/postgres/make-fake-database'
+import PgContentResource from '@/infra/database/postgres/entities/pg-content-resource'
+import PgContentResourceRepository from '@/infra/database/postgres/repos/content-resource-repo'
 
-import { IBackup, IMemoryDb, newDb } from 'pg-mem'
-
-@Entity()
-class PgContentResource {
-  @PrimaryGeneratedColumn()
-  id!: string
-
-  @Column()
-  published!: number
-
-  @Column()
-  name!: string
-
-  @Column()
-  description!: string
-
-  @Column()
-  type!: string
-
-  @CreateDateColumn()
-  createdAt!: Date
-
-  @UpdateDateColumn()
-  updatedAt!: Date
-}
-
-const makeFakeDb = async (entities?: any[]): Promise<IMemoryDb> => {
-  const db = newDb()
-  const connection = await db.adapters.createTypeormConnection({
-    type: 'postgres',
-    entities: entities ?? [PgContentResource]
-  })
-  await connection.synchronize()
-  return db
-}
-
-class PgContentResourceRepository implements SaveContentResourceRepositoryInterface, LoadContentResourceRepositoryInterface {
-  async load (input: LoadTransactionRepositoryNamespace.Input): Promise<LoadTransactionRepositoryNamespace.Output> {
-    const pgContentResourceRepo = getRepository(PgContentResource)
-    const findContentResource = await pgContentResourceRepo.findOne({ id: input.id })
-    if (findContentResource !== undefined) {
-      return {
-        id: findContentResource.id,
-        published: findContentResource.published,
-        name: findContentResource.name,
-        description: findContentResource.description,
-        type: findContentResource.type,
-        createdAt: findContentResource.createdAt
-      }
-    }
-  }
-
-  async save (input: SaveTransactionRepositoryNamespace.Input): Promise<SaveTransactionRepositoryNamespace.Output> {
-    const pgContentResourceRepo = getRepository(PgContentResource)
-    const contentResource = await pgContentResourceRepo.save({
-      published: 1,
-      name: input.name,
-      description: input.description,
-      type: input.type
-    })
-    const saveContentResource = {
-      id: contentResource.id.toString(),
-      published: contentResource.published,
-      name: contentResource.name,
-      description: contentResource.description,
-      type: contentResource.type,
-      createdAt: contentResource.createdAt
-    }
-    return saveContentResource
-  }
-}
+import { IBackup } from 'pg-mem'
+import { getRepository, getConnection, Repository } from 'typeorm'
 
 describe('Content resource repository', () => {
   let sut: PgContentResourceRepository
