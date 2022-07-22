@@ -1,22 +1,20 @@
 import { ContentResource } from '@/domain/entities'
 import { AddContentResourceInterface, AddContentResourceNamespace } from '@/domain/features/add-resource-feature'
-import ContentResourceRepo from '@/infra/database/class-persistence-db'
+import PgContentResourceRepository from '@/infra/database/postgres/repos/content-resource-repo'
 
 export default class AddContentResourceService implements AddContentResourceInterface {
   constructor (
-    private readonly contentResourceRepo: ContentResourceRepo
+    private readonly contentResourceRepo: PgContentResourceRepository
   ) {}
 
-  async perform (params: AddContentResourceNamespace.Input): Promise<ContentResource> {
+  async perform (params: AddContentResourceNamespace.Input): Promise<AddContentResourceNamespace.Output> {
     const newContentResource = new ContentResource({
-      id: 'any_content_resource_input_id',
       published: params.published,
       name: params.name,
       description: params.description,
-      type: params.type,
-      createdAt: new Date(Date.now())
+      type: params.type
     })
-    await this.contentResourceRepo.add(newContentResource)
-    return newContentResource
+    const add = await this.contentResourceRepo.save(newContentResource)
+    return add
   }
 }
