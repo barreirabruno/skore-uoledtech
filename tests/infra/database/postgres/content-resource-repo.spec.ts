@@ -122,6 +122,12 @@ describe('Content resource repository', () => {
         createdAt: expect.any(Date)
       })
     })
+
+    it('should return undefined if content resource id is not found', async () => {
+      const findContentResource = await sut.load({ id: '2' })
+
+      expect(findContentResource).toBeUndefined()
+    })
   })
 
   describe('save', () => {
