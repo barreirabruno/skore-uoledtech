@@ -1,10 +1,13 @@
 import { setupMiddlewares } from '@/main/config/middlewares'
-import setupApolloServer from './apollo-server'
+import { setupApolloServer } from './apollo-server'
 
-import express from 'express'
+import express, { Express } from 'express'
 
-const app = express()
-void setupApolloServer(app)
-setupMiddlewares(app)
-
-export default app
+export const setupApp = async (): Promise<Express> => {
+  const app = express()
+  setupMiddlewares(app)
+  const server = setupApolloServer()
+  await server.start()
+  server.applyMiddleware({ app })
+  return app
+}

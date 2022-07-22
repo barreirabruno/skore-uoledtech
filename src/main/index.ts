@@ -1,6 +1,8 @@
 import './config/module-alias'
 
-import app from '@/main/config/app'
-const PORT = 3333
-
-app.listen(PORT, () => console.log('[SERVER UP AND RUNNING]'))
+void (async () => {
+  const PORT = 3333
+  const { setupApp } = await import('./config/app')
+  const app = await setupApp()
+  app.listen(PORT, () => console.log(`[SERVER UP AND RUNNING ON][http://localhost:${PORT}]`))
+})()
