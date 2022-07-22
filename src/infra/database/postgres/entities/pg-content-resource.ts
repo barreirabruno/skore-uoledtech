@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm'
 
 @Entity()
-export default class PgContentResource {
+export class PgContentResource {
   @PrimaryGeneratedColumn()
   id!: string
 
@@ -17,9 +17,9 @@ export default class PgContentResource {
   @Column()
   type!: string
 
-  @CreateDateColumn()
-  createdAt!: Date
+  @CreateDateColumn({ name: 'createdAt' })
+  created_at!: Date
 
-  @UpdateDateColumn()
-  updatedAt!: Date
+  @UpdateDateColumn({ name: 'updatedAt' })
+  updated_at!: Date
 }

@@ -1,5 +1,5 @@
 import { makeFakeDb } from '../../../mocks/postgres/make-fake-database'
-import PgContentResource from '@/infra/database/postgres/entities/pg-content-resource'
+import { PgContentResource } from '@/infra/database/postgres/entities/pg-content-resource'
 import PgContentResourceRepository from '@/infra/database/postgres/repos/content-resource-repo'
 
 import { IBackup } from 'pg-mem'
@@ -51,8 +51,8 @@ describe('Content resource repository', () => {
         name: 'any_value_name_from_test_SECOND',
         description: 'any_value_description_from_test_SECOND',
         type: 'image',
-        createdAt: expect.any(String),
-        updatedAt: expect.any(String)
+        created_at: expect.any(String),
+        updated_at: expect.any(String)
       })
     })
 
@@ -81,8 +81,8 @@ describe('Content resource repository', () => {
         name: 'any_value_name_from_test',
         description: 'any_value_description_from_test',
         type: 'pdf',
-        createdAt: expect.any(Date),
-        updatedAt: expect.any(Date)
+        created_at: expect.any(Date),
+        updated_at: expect.any(Date)
       })
     })
   })

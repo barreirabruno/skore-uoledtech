@@ -23,8 +23,8 @@ describe('Add Content Resource service', () => {
       published: 1,
       description: 'any_content_resource_input_description',
       type: 'pdf',
-      createdAt: 'any_iso_date_string',
-      updatedAt: 'any_iso_date_string'
+      created_at: 'any_iso_date_string',
+      updated_at: 'any_iso_date_string'
     })
   })
 
@@ -41,8 +41,8 @@ describe('Add Content Resource service', () => {
       published: 1,
       description: 'any_content_resource_input_description',
       type: 'pdf',
-      createdAt: expect.any(String),
-      updatedAt: expect.any(String)
+      created_at: expect.any(String),
+      updated_at: expect.any(String)
     })
   })
 

@@ -14,8 +14,8 @@ export namespace LoadTransactionRepositoryNamespace {
     name: string
     description: string
     type: string
-    createdAt: string
-    updatedAt: string
+    created_at: string
+    updated_at: string
   } | InternalServerError | undefined
 }
 
@@ -37,7 +37,7 @@ export namespace SaveTransactionRepositoryNamespace {
     name: string
     description: string
     type: string
-    createdAt: string
-    updatedAt: string
+    created_at: string
+    updated_at: string
   } | InternalServerError
 }

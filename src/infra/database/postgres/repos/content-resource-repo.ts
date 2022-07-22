@@ -1,6 +1,6 @@
 import { getRepository } from 'typeorm'
 import { SaveContentResourceRepositoryInterface, LoadContentResourceRepositoryInterface, LoadTransactionRepositoryNamespace, SaveTransactionRepositoryNamespace } from '@/data/contracts/repos/content-resource-repository'
-import PgContentResource from '../entities/pg-content-resource'
+import { PgContentResource } from '../entities/pg-content-resource'
 
 export default class PgContentResourceRepository implements SaveContentResourceRepositoryInterface, LoadContentResourceRepositoryInterface {
   async load (input: LoadTransactionRepositoryNamespace.Input): Promise<LoadTransactionRepositoryNamespace.Output> {
@@ -13,8 +13,8 @@ export default class PgContentResourceRepository implements SaveContentResourceR
         name: findContentResource.name,
         description: findContentResource.description,
         type: findContentResource.type,
-        createdAt: findContentResource.createdAt.toISOString(),
-        updatedAt: findContentResource.updatedAt.toISOString()
+        created_at: findContentResource.created_at.toISOString(),
+        updated_at: findContentResource.updated_at.toISOString()
       }
     }
   }
@@ -28,13 +28,13 @@ export default class PgContentResourceRepository implements SaveContentResourceR
       type: input.type
     })
     const saveContentResource = {
-      id: contentResource.id.toString(),
+      id: contentResource.id,
       published: contentResource.published,
       name: contentResource.name,
       description: contentResource.description,
       type: contentResource.type,
-      createdAt: contentResource.createdAt.toISOString(),
-      updatedAt: contentResource.updatedAt.toISOString()
+      created_at: contentResource.created_at.toISOString(),
+      updated_at: contentResource.updated_at.toISOString()
     }
     return saveContentResource
   }

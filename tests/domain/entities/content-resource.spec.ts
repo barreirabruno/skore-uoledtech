@@ -6,8 +6,8 @@ const inputParams = {
   published: 1,
   description: 'any_content_resource_input_description',
   type: 'pdf',
-  createdAt: new Date(Date.now()).toISOString(),
-  updatedAt: new Date(Date.now()).toISOString()
+  created_at: new Date(Date.now()).toISOString(),
+  updated_at: new Date(Date.now()).toISOString()
 }
 
 describe('Content Resource entity', () => {
@@ -19,8 +19,8 @@ describe('Content Resource entity', () => {
       published: 1,
       description: 'any_content_resource_input_description',
       type: 'pdf',
-      createdAt: expect.any(String),
-      updatedAt: expect.any(String)
+      created_at: expect.any(String),
+      updated_at: expect.any(String)
     })
   })
 })
