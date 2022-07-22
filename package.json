@@ -10,6 +10,7 @@
     "lint:fix": "npm run lint -- --fix",
     "test": "jest --passWithNoTests --no-cache --runInBand",
     "test:watch": "npm run test -- --watch",
+    "test:integration": "npm test -- --watch -c jest-integration-config.js",
     "test:staged": "npm run test -- --findRelatedTests",
     "test:coverage": "npm run test -- --coverage",
     "prepare": "husky install"
@@ -33,6 +34,7 @@
     "jest": "^28.1.2",
     "jest-mock-extended": "^2.0.7",
     "lint-staged": "^13.0.3",
+    "pg-mem": "^2.6.3",
     "ts-jest": "^28.0.5",
     "typescript": "^4.7.4"
   },
@@ -42,6 +44,9 @@
     "express": "^4.18.1",
     "graphql": "^16.5.0",
     "graphql-scalars": "^1.17.0",
-    "module-alias": "^2.2.2"
+    "module-alias": "^2.2.2",
+    "pg": "^8.7.3",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.2.29"
   }
 }
