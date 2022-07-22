@@ -8,10 +8,12 @@ describe('Add Content Resource Controller', () => {
   let sut: AddContentResourceController
 
   const inputParams = {
-    name: 'any_content_resource_input_name',
-    published: 1,
-    description: 'any_content_resource_input_description',
-    type: 'pdf'
+    params: {
+      name: 'any_content_resource_input_name',
+      published: 1,
+      description: 'any_content_resource_input_description',
+      type: 'pdf'
+    }
   }
 
   beforeAll(() => {
@@ -28,14 +30,14 @@ describe('Add Content Resource Controller', () => {
 
   it('should call AddContentResourceService with correct params', async () => {
     const spyAddContentResourceService = jest.spyOn(contentResourceRepository, 'perform')
-    await sut.handle(inputParams)
+    await sut.perform(inputParams)
     expect(spyAddContentResourceService).toHaveBeenCalled()
     expect(spyAddContentResourceService).toHaveBeenCalledTimes(1)
     expect(spyAddContentResourceService).toHaveBeenCalledWith({
       published: 1,
       name: 'any_content_resource_input_name',
       description: 'any_content_resource_input_description',
-      type: 'string | pdf | image'
+      type: 'pdf'
     })
   })
 
@@ -48,7 +50,7 @@ describe('Add Content Resource Controller', () => {
         name: 'any_content_resource_input_name',
         published: 1,
         description: 'any_content_resource_input_description',
-        type: 'string | pdf | image'
+        type: 'pdf'
       }
     })
   })
