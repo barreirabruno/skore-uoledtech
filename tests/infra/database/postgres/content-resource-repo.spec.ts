@@ -1,4 +1,4 @@
-import { SaveContentResourceRepositoryInterface, SaveTransactionRepositoryNamespace } from '@/data/contracts/repos/content-resource-repository'
+import { SaveContentResourceRepositoryInterface, LoadContentResourceRepositoryInterface, SaveTransactionRepositoryNamespace, LoadTransactionRepositoryNamespace } from '@/data/contracts/repos/content-resource-repository'
 import { Entity, PrimaryGeneratedColumn, getRepository, Column, CreateDateColumn, UpdateDateColumn, getConnection, Repository } from 'typeorm'
 
 import { IBackup, IMemoryDb, newDb } from 'pg-mem'
@@ -37,7 +37,22 @@ const makeFakeDb = async (entities?: any[]): Promise<IMemoryDb> => {
   return db
 }
 
-class PgContentResourceRepository implements SaveContentResourceRepositoryInterface {
+class PgContentResourceRepository implements SaveContentResourceRepositoryInterface, LoadContentResourceRepositoryInterface {
+  async load (input: LoadTransactionRepositoryNamespace.Input): Promise<LoadTransactionRepositoryNamespace.Output> {
+    const pgContentResourceRepo = getRepository(PgContentResource)
+    const findContentResource = await pgContentResourceRepo.findOne({ id: input.id })
+    if (findContentResource !== undefined) {
+      return {
+        id: findContentResource.id,
+        published: findContentResource.published,
+        name: findContentResource.name,
+        description: findContentResource.description,
+        type: findContentResource.type,
+        createdAt: findContentResource.createdAt
+      }
+    }
+  }
+
   async save (input: SaveTransactionRepositoryNamespace.Input): Promise<SaveTransactionRepositoryNamespace.Output> {
     const pgContentResourceRepo = getRepository(PgContentResource)
     const contentResource = await pgContentResourceRepo.save({
@@ -47,7 +62,7 @@ class PgContentResourceRepository implements SaveContentResourceRepositoryInterf
       type: input.type
     })
     const saveContentResource = {
-      id: contentResource.id,
+      id: contentResource.id.toString(),
       published: contentResource.published,
       name: contentResource.name,
       description: contentResource.description,
@@ -76,6 +91,37 @@ describe('Content resource repository', () => {
 
   afterAll(async () => {
     await getConnection().close()
+  })
+
+  describe('load', () => {
+    it('should return a content resource if id exists', async () => {
+      await pgContentResourceRepo.save([
+        {
+          published: 1,
+          name: 'any_value_name_from_test_FIRST',
+          description: 'any_value_description_from_test_FIRST',
+          type: 'pdf'
+        },
+        {
+          published: 1,
+          name: 'any_value_name_from_test_SECOND',
+          description: 'any_value_description_from_test_SECOND',
+          type: 'image'
+        }
+      ])
+
+      const findContentResource = await sut.load({ id: '2' })
+
+      expect(findContentResource).toBeTruthy()
+      expect(findContentResource).toEqual({
+        id: 2,
+        published: 1,
+        name: 'any_value_name_from_test_SECOND',
+        description: 'any_value_description_from_test_SECOND',
+        type: 'image',
+        createdAt: expect.any(Date)
+      })
+    })
   })
 
   describe('save', () => {
