@@ -13,7 +13,8 @@ export default class PgContentResourceRepository implements SaveContentResourceR
         name: findContentResource.name,
         description: findContentResource.description,
         type: findContentResource.type,
-        createdAt: findContentResource.createdAt
+        createdAt: findContentResource.createdAt.toISOString(),
+        updatedAt: findContentResource.updatedAt.toISOString()
       }
     }
   }
@@ -32,7 +33,8 @@ export default class PgContentResourceRepository implements SaveContentResourceR
       name: contentResource.name,
       description: contentResource.description,
       type: contentResource.type,
-      createdAt: contentResource.createdAt
+      createdAt: contentResource.createdAt.toISOString(),
+      updatedAt: contentResource.updatedAt.toISOString()
     }
     return saveContentResource
   }
