@@ -1,11 +1,11 @@
-import ContentResourceRepo from '@/infra/database/class-persistence-db'
 import AddContentResourceService from '@/data/add-content-resource-service'
+import PgContentResourceRepository from '@/infra/database/postgres/repos/content-resource-repo'
 
 import { mock, MockProxy } from 'jest-mock-extended'
 import { ContentResource } from '@/domain/entities'
 
 describe('Add Content Resource service', () => {
-  let contentResourceRepository: MockProxy<ContentResourceRepo>
+  let contentResourceRepository: MockProxy<PgContentResourceRepository>
   let addContentResourceService: AddContentResourceService
 
   const inputParams = {
@@ -17,6 +17,15 @@ describe('Add Content Resource service', () => {
 
   beforeAll(() => {
     contentResourceRepository = mock()
+    contentResourceRepository.save.mockResolvedValue({
+      id: 'any_content_resource_input_id',
+      name: 'any_content_resource_input_name',
+      published: 1,
+      description: 'any_content_resource_input_description',
+      type: 'pdf',
+      createdAt: 'any_iso_date_string',
+      updatedAt: 'any_iso_date_string'
+    })
   })
 
   beforeEach(() => {
@@ -32,20 +41,19 @@ describe('Add Content Resource service', () => {
       published: 1,
       description: 'any_content_resource_input_description',
       type: 'pdf',
-      createdAt: expect.any(Date)
+      createdAt: expect.any(String),
+      updatedAt: expect.any(String)
     })
   })
 
   it('should call Content Resource Repository with correct params', async () => {
     const newContentResource = new ContentResource({
-      id: 'any_content_resource_input_id',
       name: 'any_content_resource_input_name',
       published: 1,
       description: 'any_content_resource_input_description',
-      type: 'pdf',
-      createdAt: new Date(Date.now())
+      type: 'pdf'
     })
-    const contentResourceSpy = jest.spyOn(contentResourceRepository, 'add')
+    const contentResourceSpy = jest.spyOn(contentResourceRepository, 'save')
     await addContentResourceService.perform(inputParams)
     expect(contentResourceSpy).toHaveBeenCalled()
     expect(contentResourceSpy).toHaveBeenCalledTimes(1)

@@ -51,7 +51,8 @@ describe('Content resource repository', () => {
         name: 'any_value_name_from_test_SECOND',
         description: 'any_value_description_from_test_SECOND',
         type: 'image',
-        createdAt: expect.any(Date)
+        createdAt: expect.any(String),
+        updatedAt: expect.any(String)
       })
     })
 
