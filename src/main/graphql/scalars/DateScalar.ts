@@ -4,7 +4,7 @@ export const dateScalar = new GraphQLScalarType({
   name: 'Date',
   description: 'Scalar for Date type',
   serialize (value: any) {
-    return value.toString()
+    return value.toISOString()
   },
   parseValue (value: any) {
     return new Date(value)
