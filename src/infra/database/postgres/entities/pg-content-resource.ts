@@ -17,9 +17,9 @@ export class PgContentResource {
   @Column()
   type!: string
 
-  @CreateDateColumn({ name: 'createdAt' })
+  @CreateDateColumn()
   created_at!: Date
 
-  @UpdateDateColumn({ name: 'updatedAt' })
+  @UpdateDateColumn()
   updated_at!: Date
 }
