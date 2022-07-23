@@ -42,7 +42,13 @@ describe('Add Content Resource Controller', () => {
   })
 
   it('should return 200 if perform method succeeds', async () => {
-    const httpResponse = await sut.handle(inputParams)
+    contentResourceRepository.perform.mockResolvedValueOnce({
+      name: 'any_content_resource_input_name',
+      published: 1,
+      description: 'any_content_resource_input_description',
+      type: 'pdf'
+    })
+    const httpResponse = await sut.perform(inputParams)
 
     expect(httpResponse).toEqual({
       statusCode: 200,
