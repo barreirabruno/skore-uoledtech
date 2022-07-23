@@ -1,9 +1,10 @@
 import AddContentResourceService from '@/data/add-content-resource-service'
 import PgContentResourceRepository from '@/infra/database/postgres/repos/content-resource-repo'
-import { AddContentResourceController } from '@/presentation/controllers'
+import { AddContentResourceController, Controller } from '@/presentation/controllers'
+import { makeLogController } from './log-controller'
 
-export const makeAddContentResourceController = (): AddContentResourceController => {
+export const makeAddContentResourceController = (): Controller => {
   const persistenceClass = new PgContentResourceRepository()
   const addContentResourceService = new AddContentResourceService(persistenceClass)
-  return new AddContentResourceController(addContentResourceService)
+  return makeLogController(new AddContentResourceController(addContentResourceService))
 }
