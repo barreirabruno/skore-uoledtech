@@ -1,3 +1,4 @@
+import { InternalServerError } from '@/domain/entities/errors/internal-server-error'
 import { apolloServerResolverAdapter } from '@/infra/graphql/apollo-server/apollo-sever-resolver-adapter'
 import { Controller } from '@/presentation/controllers'
 import { HttpResponse } from '@/presentation/helpers'
@@ -33,5 +34,15 @@ describe('Apollo Server Resolver Adapter', () => {
         expect(sut).toEqual(response.data)
       })
     })
+  })
+
+  it('should return an Apollo custom error by default', async () => {
+    const responseWithError = {
+      statusCode: 500,
+      data: new InternalServerError()
+    }
+    controller = new ControllerStub(responseWithError)
+    const sut = apolloServerResolverAdapter(controller, { params: 'any_params' })
+    await expect(sut).rejects.toThrow()
   })
 })
