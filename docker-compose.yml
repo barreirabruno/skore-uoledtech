@@ -1,0 +1,40 @@
+version: '3.8'
+services:
+  service-skoreio:
+    build:
+      context: .
+    command: npm run start
+    volumes:
+      - .:/app/
+      - /app/node_modules
+    ports:
+      - 3333:3333
+    depends_on:
+      - database-skoreio
+  
+  database-skoreio:
+    image: postgres:11.5
+    restart: always
+    container_name: pgskoreio
+    user: postgres
+    environment:
+      - "POSTGRES_PASSWORD=postgreslocal"
+    ports:
+      - 5432:5432
+    env_file:
+      - ./.env
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  
+  rabbitmq-skoreio:
+    image: rabbitmq:3.6.1-management
+    container_name: rmqskoreio
+    depends_on:
+      - service-skoreio
+    ports:
+      - 15672:15672
+      - 5672:5672
+    restart: always
