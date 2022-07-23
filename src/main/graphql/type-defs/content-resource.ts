@@ -17,7 +17,7 @@ export default gql`
     name: String!
     description: String!
     type: String!
-    createdAt: Date!
+    created_at: String!
   }
 
   extend type Mutation {

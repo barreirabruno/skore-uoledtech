@@ -4,8 +4,8 @@ type ContentResourceData = {
   name: string
   description: string
   type: string
-  created_at?: String
-  updated_at?: String
+  created_at?: string
+  updated_at?: string
 }
 
 export class ContentResource {
@@ -14,8 +14,8 @@ export class ContentResource {
   name: string
   description: string
   type: string
-  created_at?: String
-  updated_at?: String
+  created_at?: string
+  updated_at?: string
 
   constructor (params: ContentResourceData) {
     this.id = params.id
