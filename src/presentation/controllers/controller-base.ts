@@ -8,7 +8,7 @@ export abstract class Controller {
     try {
       return await this.perform(httpRequest)
     } catch (error) {
-      pinoHelper.logError(error)
+      pinoHelper.logError(error, 'Error on controller execution')
       return serverError(error as Error)
     }
   }
