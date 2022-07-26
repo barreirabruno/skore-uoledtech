@@ -20,6 +20,7 @@ export default class PgContentResourceRepository implements SaveContentResourceR
   }
 
   async save (input: SaveTransactionRepositoryNamespace.Input): Promise<SaveTransactionRepositoryNamespace.Output> {
+    console.log('[CHANGE FOR LOG][REPOSITORY][INPUT]: ', input)
     const pgContentResourceRepo = getRepository(PgContentResource)
     const contentResource = await pgContentResourceRepo.save({
       published: 1,
@@ -27,15 +28,15 @@ export default class PgContentResourceRepository implements SaveContentResourceR
       description: input.description,
       type: input.type
     })
-    const saveContentResource = {
+    console.log('[CHANGE FOR LOG][REPOSITORY][SAVE]: ', contentResource)
+    return {
       id: contentResource.id,
-      published: contentResource.published,
-      name: contentResource.name,
-      description: contentResource.description,
-      type: contentResource.type,
+      published: input.published,
+      name: input.name,
+      description: input.description,
+      type: input.type,
       created_at: contentResource.created_at.toISOString(),
       updated_at: contentResource.updated_at.toISOString()
     }
-    return saveContentResource
   }
 }
