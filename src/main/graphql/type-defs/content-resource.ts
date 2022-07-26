@@ -11,16 +11,17 @@ export default gql`
     type: String!
   }
 
-  type ContentResourceOutput {
+  type ContentResourceOutput  {
     id: String!
     published: Int!
     name: String!
     description: String!
     type: String!
     created_at: String!
+    updated_at: String!
   }
 
   extend type Mutation {
-    add (params: ContentResourceInput!): ContentResourceOutput!
+    add (params: ContentResourceInput!): ContentResourceOutput! @auth
   }
 `
