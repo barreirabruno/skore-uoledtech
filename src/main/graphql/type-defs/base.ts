@@ -1,9 +1,12 @@
 import { gql } from 'apollo-server-express'
 
 export default gql`
-   type Query {
+  directive @auth on FIELD_DEFINITION
+  
+  type Query {
     _: String
   }
+  
   type Mutation {
     _: String
   }
