@@ -11,7 +11,7 @@ services:
       - 3333:3333
     depends_on:
       - database-skoreio
-  
+
   database-skoreio:
     image: postgres:11.5
     restart: always
@@ -30,9 +30,9 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-  
+
   rabbitmq-skoreio:
-    image: rabbitmq:3.6.1-management
+    image: rabbitmq:3
     container_name: rmqskoreio
     depends_on:
       - service-skoreio
