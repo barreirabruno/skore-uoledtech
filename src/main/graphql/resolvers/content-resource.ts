@@ -3,6 +3,8 @@ import { makeAddContentResourceController } from '@/main/factories/add-content-r
 
 export default {
   Mutation: {
-    add: async (parent: any, args: any) => await apolloServerResolverAdapter(makeAddContentResourceController(), args)
+    add: async (parent: any, args: any, context: any) => {
+      return await apolloServerResolverAdapter(makeAddContentResourceController(), args)
+    }
   }
 }
