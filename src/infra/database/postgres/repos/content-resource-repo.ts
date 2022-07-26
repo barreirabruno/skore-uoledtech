@@ -1,6 +1,7 @@
 import { getRepository } from 'typeorm'
 import { SaveContentResourceRepositoryInterface, LoadContentResourceRepositoryInterface, LoadTransactionRepositoryNamespace, SaveTransactionRepositoryNamespace } from '@/data/contracts/repos/content-resource-repository'
 import { PgContentResource } from '../entities/pg-content-resource'
+import { pinoHelper } from '@/infra/logger/pino-helper'
 
 export default class PgContentResourceRepository implements SaveContentResourceRepositoryInterface, LoadContentResourceRepositoryInterface {
   async load (input: LoadTransactionRepositoryNamespace.Input): Promise<LoadTransactionRepositoryNamespace.Output> {
@@ -20,7 +21,8 @@ export default class PgContentResourceRepository implements SaveContentResourceR
   }
 
   async save (input: SaveTransactionRepositoryNamespace.Input): Promise<SaveTransactionRepositoryNamespace.Output> {
-    console.log('[CHANGE FOR LOG][REPOSITORY][INPUT]: ', input)
+    // console.log('[CHANGE FOR LOG][REPOSITORY][INPUT]: ', input)
+    pinoHelper.logInfo(input, 'infra', 'Prepare content resource to save')
     const pgContentResourceRepo = getRepository(PgContentResource)
     const contentResource = await pgContentResourceRepo.save({
       published: 1,
@@ -28,7 +30,8 @@ export default class PgContentResourceRepository implements SaveContentResourceR
       description: input.description,
       type: input.type
     })
-    console.log('[CHANGE FOR LOG][REPOSITORY][SAVE]: ', contentResource)
+    // console.log('[CHANGE FOR LOG][REPOSITORY][SAVE]: ', contentResource)
+    pinoHelper.logInfo(contentResource, 'infra', 'Save content resource on database')
     return {
       id: contentResource.id,
       published: input.published,

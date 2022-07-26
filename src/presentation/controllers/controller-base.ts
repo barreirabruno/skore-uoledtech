@@ -1,3 +1,4 @@
+import { pinoHelper } from '@/infra/logger/pino-helper'
 import { HttpResponse, serverError } from '../helpers'
 
 export abstract class Controller {
@@ -7,6 +8,7 @@ export abstract class Controller {
     try {
       return await this.perform(httpRequest)
     } catch (error) {
+      pinoHelper.logError(error)
       return serverError(error as Error)
     }
   }
