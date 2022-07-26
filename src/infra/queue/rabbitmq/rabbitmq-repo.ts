@@ -4,7 +4,8 @@ export default class RabbitMQRepo {
   queueName: string = 'service_a_logs'
 
   private async setupConnection (): Promise<Channel> {
-    const connection = await amqplib.connect('amqp://guest:guest@rmqskoreio:5672')
+    // const connection = await amqplib.connect('amqp://guest:guest@rmqskoreio:5672')
+    const connection = await amqplib.connect('amqp://guest:guest@localhost:5672')
     const queueName = this.queueName
     const channel1 = await connection.createChannel()
     await channel1.assertQueue(queueName)
