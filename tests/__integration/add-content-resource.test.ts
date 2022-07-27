@@ -42,7 +42,7 @@ describe('Add content resource', () => {
         name: 'any_name_C',
         published: 1,
         description: 'any_description_B',
-        type: 'string'
+        type: 'image'
       }
     }
   }
@@ -82,7 +82,7 @@ describe('Add content resource', () => {
       published: 1,
       name: 'any_name_C',
       description: 'any_description_B',
-      type: 'string',
+      type: 'image',
       created_at: expect.any(String),
       updated_at: expect.any(String)
     })
