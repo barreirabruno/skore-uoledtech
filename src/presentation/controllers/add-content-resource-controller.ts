@@ -33,7 +33,7 @@ export class AddContentResourceController extends Controller {
       ...ValidatorBuilder.of({ value: httpRequest.params.name, fieldName: 'name' }).required().build(),
       ...ValidatorBuilder.of({ value: httpRequest.params.description, fieldName: 'description' }).required().build(),
       ...ValidatorBuilder.of({ value: httpRequest.params.type, fieldName: 'type' }).required().contentResourceType().build(),
-      ...ValidatorBuilder.of({ value: httpRequest.params.type, fieldName: 'published' }).publishedField().build()
+      ...ValidatorBuilder.of({ value: httpRequest.params.published, fieldName: 'published' }).publishedField().build()
     ]
   }
 }
