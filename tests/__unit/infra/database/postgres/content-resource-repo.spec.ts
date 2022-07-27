@@ -64,8 +64,38 @@ describe('Content resource repository', () => {
   })
 
   describe('save', () => {
-    it('should create a content resource successfuly', async () => {
+    it('should update a content resource if id is defined', async () => {
       await sut.save({
+        published: 1,
+        name: 'any_value_name_from_test',
+        description: 'any_value_description_from_test',
+        type: 'pdf'
+      })
+
+      const findContentResource = await pgContentResourceRepo.findOne({ id: '1' })
+
+      const updateContentResource = await sut.save({
+        id: findContentResource?.id,
+        published: 1,
+        name: 'update_content_resource_name',
+        description: 'update_value_description_from_test',
+        type: 'pdf'
+      })
+
+      expect(updateContentResource).toBeTruthy()
+      expect(updateContentResource).toEqual({
+        id: 1,
+        published: 1,
+        name: 'update_content_resource_name',
+        description: 'update_value_description_from_test',
+        type: 'pdf',
+        created_at: expect.any(String),
+        updated_at: expect.any(String)
+      })
+    })
+
+    it('should create a content resource successfuly', async () => {
+      const saveContentResource = await sut.save({
         published: 1,
         name: 'any_value_name_from_test',
         description: 'any_value_description_from_test',
@@ -83,6 +113,16 @@ describe('Content resource repository', () => {
         type: 'pdf',
         created_at: expect.any(Date),
         updated_at: expect.any(Date)
+      })
+      expect(saveContentResource).toBeTruthy()
+      expect(saveContentResource).toEqual({
+        id: 1,
+        published: 1,
+        name: 'any_value_name_from_test',
+        description: 'any_value_description_from_test',
+        type: 'pdf',
+        created_at: expect.any(String),
+        updated_at: expect.any(String)
       })
     })
   })
