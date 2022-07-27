@@ -33,6 +33,19 @@ describe('Add Content Resource service', () => {
     addContentResourceService = new AddContentResourceService(contentResourceRepository)
   })
 
+  it('should call ContentResourceRepo.save when ContentResourceRepo.load returns null', async () => {
+    contentResourceRepository.load.mockResolvedValueOnce(null)
+    const contentResourceFromDatabase = {
+      name: 'any_content_resource_input_name',
+      published: 1,
+      description: 'any_content_resource_input_description',
+      type: 'pdf'
+    }
+    await addContentResourceService.perform(contentResourceFromDatabase)
+
+    expect(contentResourceRepository.save).toHaveBeenCalledWith({ ...contentResourceFromDatabase })
+  })
+
   it('should create a Content Resource successfully', async () => {
     const sut = await addContentResourceService.perform(inputParams)
     expect(sut).toEqual({
