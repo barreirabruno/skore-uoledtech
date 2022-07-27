@@ -14,13 +14,13 @@ export class AddContentResourceController extends Controller {
   }
 
   async perform (httpRequest: any): Promise<HttpResponse<any>> {
+    pinoHelper.logInfo(httpRequest, 'presentation>controllers', 'Raw object that will be sent to repository')
     const inputContentResource = new ContentResource({
+      published: httpRequest.params.published,
       name: httpRequest.params.name,
       description: httpRequest.params.description,
-      type: httpRequest.params.type,
-      published: httpRequest.params.published
+      type: httpRequest.params.type
     })
-    pinoHelper.logInfo(inputContentResource, 'presentation>controllers', 'Raw object that will be sent to repository')
     const newContentResource = await this.addContentResourceService.perform(inputContentResource)
     return {
       statusCode: 200,
