@@ -1,4 +1,4 @@
-import { InvalidContentTypeError } from '@/presentation/errors/invalid-content-type-error'
+import { InvalidFieldError } from '@/presentation/errors/invalid-field-error'
 import ContentResourceValidator from '@/presentation/validation/content-resource-validator'
 
 describe('Content resource type validator', () => {
@@ -18,6 +18,6 @@ describe('Content resource type validator', () => {
 
     const error = sut.validate()
 
-    expect(error).toEqual(new InvalidContentTypeError('type'))
+    expect(error).toEqual(new InvalidFieldError('type'))
   })
 })
