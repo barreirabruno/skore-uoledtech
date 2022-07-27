@@ -8,7 +8,7 @@ export namespace LoadTransactionRepositoryNamespace {
   export type Input = {
     id: string
   }
-  export type Output = {
+  export type Output = null | undefined | {
     id: string
     published: number
     name: string
@@ -16,7 +16,7 @@ export namespace LoadTransactionRepositoryNamespace {
     type: string
     created_at: string
     updated_at: string
-  } | InternalServerError | undefined
+  }
 }
 
 export interface SaveContentResourceRepositoryInterface {
@@ -39,5 +39,5 @@ export namespace SaveTransactionRepositoryNamespace {
     type: string
     created_at: string
     updated_at: string
-  } | InternalServerError
+  } | InternalServerError | undefined
 }
