@@ -1,6 +1,10 @@
 import ServerError from '@/domain/entities/errors/server-error'
 import { Controller } from '@/presentation/controllers'
 import { HttpResponse } from '@/presentation/helpers'
+import ValidationComposite from '@/presentation/validation/validation-composite'
+import { mocked } from 'jest-mock'
+
+jest.mock('@/presentation/validation/validation-composite')
 
 class ControllerStub extends Controller {
   result: HttpResponse = {
@@ -33,6 +37,29 @@ describe('Controller base', () => {
 
   afterAll(() => {
     jest.clearAllMocks()
+  })
+
+  it('should return 400 if validation fails', async () => {
+    const error = new Error('Validation Error')
+    const validationCompositeSpy = jest.fn().mockImplementationOnce(() => ({
+      validate: jest.fn().mockReturnValueOnce(error)
+    }))
+    mocked(ValidationComposite).mockImplementationOnce(validationCompositeSpy)
+
+    const httpResponse = await sut.handle({
+      params: {
+        name: '',
+        published: 1,
+        description: 'any_content_resource_input_description',
+        type: 'pdf'
+      }
+    })
+
+    expect(ValidationComposite).toHaveBeenCalledWith([])
+    expect(httpResponse).toEqual({
+      statusCode: 400,
+      data: error
+    })
   })
 
   it('should return 500 if perform method fails for any reason', async () => {
