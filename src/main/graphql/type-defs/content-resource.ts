@@ -5,6 +5,7 @@ export default gql`
   scalar Date
 
   input ContentResourceInput {
+    id: String
     published: Int!
     name: String!
     description: String!
@@ -23,5 +24,6 @@ export default gql`
 
   extend type Mutation {
     add (params: ContentResourceInput!): ContentResourceOutput! @auth
+    update (params: ContentResourceInput!): ContentResourceOutput! @auth
   }
 `

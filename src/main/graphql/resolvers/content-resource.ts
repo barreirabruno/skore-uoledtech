@@ -5,6 +5,9 @@ export default {
   Mutation: {
     add: async (parent: any, args: any, context: any) => {
       return await apolloServerResolverAdapter(makeAddContentResourceController(), args)
+    },
+    update: async (parent: any, args: any, context: any) => {
+      return await apolloServerResolverAdapter(makeAddContentResourceController(), args)
     }
   }
 }
