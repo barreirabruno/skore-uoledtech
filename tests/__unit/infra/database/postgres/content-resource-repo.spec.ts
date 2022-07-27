@@ -1,4 +1,4 @@
-import { makeFakeDb } from '../../../mocks/postgres/make-fake-database'
+import { makeFakeDb } from '../../../../mocks/postgres/make-fake-database'
 import { PgContentResource } from '@/infra/database/postgres/entities/pg-content-resource'
 import PgContentResourceRepository from '@/infra/database/postgres/repos/content-resource-repo'
 
