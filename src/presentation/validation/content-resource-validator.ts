@@ -1,4 +1,4 @@
-import { InvalidContentTypeError } from '../errors/invalid-content-type-error'
+import { InvalidFieldError } from '@/presentation/errors/invalid-field-error'
 
 export default class ContentResourceValidator {
   constructor (
@@ -10,7 +10,7 @@ export default class ContentResourceValidator {
     const contentTypeAvailable = ['pdf', 'image', 'video']
     const validateType = contentTypeAvailable.indexOf(this.value)
     if (validateType === -1) {
-      return new InvalidContentTypeError(this.fieldName)
+      return new InvalidFieldError(this.fieldName)
     }
     return undefined
   }
