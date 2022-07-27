@@ -12,5 +12,5 @@ export namespace AddContentResourceNamespace {
     description: string
     type: string
   }
-  export type Output = ContentResource | InternalServerError
+  export type Output = ContentResource | InternalServerError | undefined
 }
