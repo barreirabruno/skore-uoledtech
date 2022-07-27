@@ -16,6 +16,11 @@ export const forbidenError = (error: Error): HttpResponse<AccessDeniedError> => 
   data: error
 })
 
+export const badRequest = (error: Error): HttpResponse<AccessDeniedError> => ({
+  statusCode: 400,
+  data: error
+})
+
 export const success = (data: any): HttpResponse => ({
   statusCode: 200,
   data: data
