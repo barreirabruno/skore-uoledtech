@@ -1,4 +1,3 @@
-// import { ContentResource } from '@/domain/entities'
 import { AddContentResourceInterface, AddContentResourceNamespace } from '@/domain/features/add-resource-feature'
 import PgContentResourceRepository from '@/infra/database/postgres/repos/content-resource-repo'
 import { pinoHelper } from '@/infra/logger/pino-helper'
