@@ -16,6 +16,7 @@ export class AddContentResourceController extends Controller {
   async perform (httpRequest: any): Promise<HttpResponse<any>> {
     pinoHelper.logInfo(httpRequest, 'presentation>controllers', 'Raw object that will be sent to repository')
     const inputContentResource = new ContentResource({
+      id: httpRequest.params.id,
       published: httpRequest.params.published,
       name: httpRequest.params.name,
       description: httpRequest.params.description,
