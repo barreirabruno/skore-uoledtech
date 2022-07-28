@@ -42,12 +42,7 @@ Manage and visualize content. There is a simple access level implemented for - *
   npm run test
 ```
 
-### Run integration tests
-```
-  npm run test:integration
-```
-
-### Run unit/integration tests with coverage
+### Run unit tests with coverage
 ```
   npm run test:coverage
 ```
@@ -59,6 +54,13 @@ curl --location --request POST 'http://localhost:3333/graphql' \
 --header 'role: ADMIN' \
 --header 'Content-Type: application/json' \
 --data-raw '{"query":"mutation Add($addContentResource: ContentResourceInput!) {\n    add(params: $addContentResource) {\n        id\n        published\n        name\n        description\n        type\n        created_at\n        updated_at\n    }\n}","variables":{"addContentResource":{"name":"any_readme_name","description":"any_readme_description","type":"pdf","published":1}}}'
+```
+
+**view a content resource**
+```
+curl --location --request POST 'http://localhost:3333/graphql' \
+--header 'Content-Type: application/json' \
+--data-raw '{"query":"query ViewContentResource($viewContentResource: ViewContentResourceInput!) {\n    viewcontentresource(params: $viewContentResource) {\n        id\n        published\n        name\n        description\n        type\n        created_at\n        updated_at\n    }\n}","variables":{"viewContentResource":{"id":"1"}}}'
 ```
 
 **update a content resource**
