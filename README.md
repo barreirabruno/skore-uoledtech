@@ -10,7 +10,7 @@ Manage and visualize content. There is a simple access level implemented for - *
 **Administrators features:**
 - [x] Add a content resource
 - [x] Update a content resource
-- [x] Delete a code resource
+- [x] Delete a content resource
 - [ ] Check the unique views per resource
 
 **Users features:**
@@ -20,6 +20,13 @@ Manage and visualize content. There is a simple access level implemented for - *
 - Typescript
 - NodeJS
 - Jest
+- GraphQL
+- GraphQL-Tools
+- Express
+- Apollo-express
+- TypeORM
+- Postgres
+- RabbitMQ
 
 ## Setup project
 
