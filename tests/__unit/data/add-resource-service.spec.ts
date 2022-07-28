@@ -17,15 +17,6 @@ describe('Add Content Resource service', () => {
 
   beforeAll(() => {
     contentResourceRepository = mock()
-    contentResourceRepository.save.mockResolvedValue({
-      id: 'any_content_resource_input_id',
-      name: 'any_content_resource_input_name',
-      published: 1,
-      description: 'any_content_resource_input_description',
-      type: 'pdf',
-      created_at: 'any_iso_date_string',
-      updated_at: 'any_iso_date_string'
-    })
   })
 
   beforeEach(() => {
@@ -46,7 +37,62 @@ describe('Add Content Resource service', () => {
     expect(contentResourceRepository.save).toHaveBeenCalledWith({ ...contentResourceFromDatabase })
   })
 
+  it('should update a Content Resource successfully', async () => {
+    contentResourceRepository.load.mockResolvedValueOnce({
+      id: 'any_id_from_database',
+      name: 'any_name_value_from_database',
+      published: 1,
+      description: 'any_description_value_from_database',
+      type: 'pdf',
+      created_at: new Date(Date.now()).toISOString(),
+      updated_at: new Date(Date.now()).toISOString()
+    })
+
+    contentResourceRepository.save.mockResolvedValueOnce({
+      id: 'any_id_from_database',
+      name: '**[UPDATE][UPDATE][UPDATE][UPDATE]**',
+      published: 1,
+      description: '**[UPDATE]****[UPDATE]****[UPDATE]',
+      type: 'pdf',
+      created_at: new Date(Date.now()).toISOString(),
+      updated_at: new Date(Date.now()).toISOString()
+    })
+
+    const spyContentResourceRepositorySave = jest.spyOn(contentResourceRepository, 'save')
+
+    const sut = await addContentResourceService.perform({
+      id: 'any_id_from_database',
+      name: '**[UPDATE][UPDATE][UPDATE][UPDATE]**',
+      published: 1,
+      description: '**[UPDATE]****[UPDATE]****[UPDATE]',
+      type: 'pdf'
+    })
+
+    console.log('[SUT RESPONSE]: ', sut)
+
+    expect(spyContentResourceRepositorySave).toHaveBeenCalled()
+    expect(spyContentResourceRepositorySave).toHaveBeenCalledTimes(1)
+    expect(spyContentResourceRepositorySave).toHaveBeenCalledWith({
+      id: 'any_id_from_database',
+      name: '**[UPDATE][UPDATE][UPDATE][UPDATE]**',
+      published: 1,
+      description: '**[UPDATE]****[UPDATE]****[UPDATE]',
+      type: 'pdf',
+      created_at: expect.any(String),
+      updated_at: expect.any(String)
+    })
+  })
+
   it('should create a Content Resource successfully', async () => {
+    contentResourceRepository.save.mockResolvedValueOnce({
+      id: 'any_content_resource_input_id',
+      name: 'any_content_resource_input_name',
+      published: 1,
+      description: 'any_content_resource_input_description',
+      type: 'pdf',
+      created_at: 'any_iso_date_string',
+      updated_at: 'any_iso_date_string'
+    })
     const sut = await addContentResourceService.perform(inputParams)
     expect(sut).toEqual({
       id: 'any_content_resource_input_id',
