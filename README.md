@@ -11,7 +11,7 @@ Manage and visualize content. There is a simple access level implemented for - *
 - [x] Add a content resource
 - [x] Update a content resource
 - [x] Delete a content resource
-- [ ] View a resource by id
+- [x] View a resource by id
 - [ ] Check the unique views per resource
 
 **Users features:**
