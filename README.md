@@ -36,8 +36,14 @@ Manage and visualize content. There is a simple access level implemented for - *
 ```
   docker-compose up
 ```
+### Tests
+Install node dependencies
+```
+  npm install
+```
 
 ### Run unit tests
+
 ```
   npm run test
 ```
