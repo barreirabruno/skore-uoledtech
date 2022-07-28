@@ -1,9 +1,18 @@
 import { getRepository } from 'typeorm'
-import { SaveContentResourceRepositoryInterface, LoadContentResourceRepositoryInterface, LoadTransactionRepositoryNamespace, SaveTransactionRepositoryNamespace } from '@/data/contracts/repos/content-resource-repository'
+import { SaveContentResourceRepositoryInterface, LoadContentResourceRepositoryInterface, LoadTransactionRepositoryNamespace, SaveTransactionRepositoryNamespace, DeactivateContentResourceRepositoryInterface, DeactivateContentResourceRepositoryNamespace } from '@/data/contracts/repos/content-resource-repository'
 import { PgContentResource } from '../entities/pg-content-resource'
 import { pinoHelper } from '@/infra/logger/pino-helper'
 
-export default class PgContentResourceRepository implements SaveContentResourceRepositoryInterface, LoadContentResourceRepositoryInterface {
+export default class PgContentResourceRepository implements SaveContentResourceRepositoryInterface, LoadContentResourceRepositoryInterface, DeactivateContentResourceRepositoryInterface {
+  async deactivate (input: DeactivateContentResourceRepositoryNamespace.Input): Promise<void> {
+    const pgContentResourceRepo = getRepository(PgContentResource)
+    await pgContentResourceRepo.update({
+      id: input.id
+    }, {
+      published: 0
+    })
+  }
+
   async load (input: LoadTransactionRepositoryNamespace.Input): Promise<LoadTransactionRepositoryNamespace.Output> {
     const pgContentResourceRepo = getRepository(PgContentResource)
     const findContentResource = await pgContentResourceRepo.findOne({ id: input.id })
