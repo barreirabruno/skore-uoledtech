@@ -1,5 +1,6 @@
 import { apolloServerResolverAdapter } from '@/infra/graphql/apollo-server/apollo-sever-resolver-adapter'
 import { makeAddContentResourceController } from '@/main/factories/add-content-resource-controller'
+import { makeDeactivateContentResourceController } from '@/main/factories/deactivate-content-resource-controller'
 
 export default {
   Mutation: {
@@ -10,7 +11,7 @@ export default {
       return await apolloServerResolverAdapter(makeAddContentResourceController(), args)
     },
     deactivate: async (parent: any, args: any, context: any) => {
-      return await apolloServerResolverAdapter(makeAddContentResourceController(), args)
+      return await apolloServerResolverAdapter(makeDeactivateContentResourceController(), args)
     }
   }
 }
