@@ -49,6 +49,6 @@ export default gql`
   }
 
   extend type Query {
-    viewcontentresource (params: ContentResourceInput!): ViewContentResourceInput!
+    viewcontentresource (params: ViewContentResourceInput!): ContentResourceOutput
   }
 `

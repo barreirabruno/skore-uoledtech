@@ -16,7 +16,7 @@ export default {
     }
   },
   Query: {
-    view: async (parent: any, args: any, context: any) => {
+    viewcontentresource: async (parent: any, args: any, context: any) => {
       return await apolloServerResolverAdapter(makeLoadContentResourceController(), args)
     }
   }
