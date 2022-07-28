@@ -25,3 +25,8 @@ export const success = (data: any): HttpResponse => ({
   statusCode: 200,
   data: data
 })
+
+export const noContent = (data: any): HttpResponse => ({
+  statusCode: 204,
+  data: data
+})
