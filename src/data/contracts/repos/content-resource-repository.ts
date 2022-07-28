@@ -41,3 +41,13 @@ export namespace SaveTransactionRepositoryNamespace {
     updated_at: string
   } | InternalServerError | undefined
 }
+
+export interface DeactivateContentResourceRepositoryInterface {
+  deactivate: (input: DeactivateContentResourceRepositoryNamespace.Input) => Promise<void>
+}
+
+export namespace DeactivateContentResourceRepositoryNamespace {
+  export type Input = {
+    id: string
+  }
+}
