@@ -12,6 +12,13 @@ export default gql`
     type: String!
   }
 
+  input ContentResourceUpdateInput {
+    id: String
+    name: String!
+    description: String!
+    type: String!
+  }
+
   type ContentResourceOutput  {
     id: String!
     published: Int!
@@ -24,6 +31,6 @@ export default gql`
 
   extend type Mutation {
     add (params: ContentResourceInput!): ContentResourceOutput! @auth
-    update (params: ContentResourceInput!): ContentResourceOutput! @auth
+    update (params: ContentResourceUpdateInput!): ContentResourceOutput! @auth
   }
 `
