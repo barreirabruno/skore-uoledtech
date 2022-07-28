@@ -7,10 +7,11 @@ export interface AddContentResourceInterface {
 
 export namespace AddContentResourceNamespace {
   export type Input = {
-    published: number
-    name: string
-    description: string
-    type: string
+    id?: string
+    published?: number
+    name?: string
+    description?: string
+    type?: string
   }
   export type Output = ContentResource | InternalServerError | undefined
 }
