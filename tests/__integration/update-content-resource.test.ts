@@ -271,4 +271,53 @@ describe('Add content resource', () => {
         })
       })
   })
+
+  it('should create a new content resource if id is undefined', async () => {
+    const updateContentResourceMutation = {
+      query: `mutation Update($updateContentResource: ContentResourceUpdateInput!) {
+          update(params: $updateContentResource) {
+              id
+              published
+              name
+              description
+              type
+              created_at
+              updated_at
+          }
+      }`,
+      variables: {
+        updateContentResource: {
+          name: 'any_content_resource_name',
+          description: 'any_content_resource_description',
+          type: 'video'
+        }
+      }
+    }
+    await request(app)
+      .post('/graphql')
+      .set('role', 'ADMIN')
+      .send(addContentResourceMutation)
+      .expect(200)
+      .then(async function (response) {
+        return await request(app)
+          .post('/graphql')
+          .set('role', 'ADMIN')
+          .send(updateContentResourceMutation)
+          .expect(200)
+      }).then(function (response) {
+        const { statusCode, body } = response
+        expect(statusCode).toBe(200)
+        expect(body.data).toBeDefined()
+        expect(body.data.update).toBeDefined()
+        expect(body.data.update).toEqual({
+          id: '2',
+          published: 1,
+          name: 'any_content_resource_name',
+          description: 'any_content_resource_description',
+          type: 'video',
+          created_at: expect.any(String),
+          updated_at: expect.any(String)
+        })
+      })
+  })
 })
