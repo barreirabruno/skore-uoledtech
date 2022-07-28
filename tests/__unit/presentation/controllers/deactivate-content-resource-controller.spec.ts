@@ -34,19 +34,6 @@ describe('Deactivate content resource', () => {
     expect(spyService).toHaveBeenCalledWith({ id: 'any_valid_id' })
   })
 
-  it('should call DeactivateContentResourceService with correct params', async () => {
-    const spyService = jest.spyOn(deactivateContentResourceService, 'perform')
-    deactivateContentResourceService.perform.mockResolvedValue({
-      id: 'any_valid_id',
-      message: 'Content resource could not be deactivated'
-    })
-
-    await sut.perform(inputParams)
-    expect(spyService).toHaveBeenCalled()
-    expect(spyService).toHaveBeenCalledTimes(1)
-    expect(spyService).toHaveBeenCalledWith({ id: 'any_valid_id' })
-  })
-
   it('should return 204 if perform method succeeds', async () => {
     deactivateContentResourceService.perform.mockResolvedValueOnce({
       id: 'any_valid_id',
