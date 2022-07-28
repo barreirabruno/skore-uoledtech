@@ -1,4 +1,4 @@
-export interface DeactivateResourceFeature {
+export interface DeactivateResourceFeatureInterface {
   perform: (params: AddContentResourceNamespace.Input) => Promise<AddContentResourceNamespace.Output>
 }
 
