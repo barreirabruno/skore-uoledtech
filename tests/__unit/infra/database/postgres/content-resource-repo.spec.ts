@@ -25,6 +25,40 @@ describe('Content resource repository', () => {
     await getConnection().close()
   })
 
+  describe('deactivate', () => {
+    it('should deactivate a content resource', async () => {
+      await pgContentResourceRepo.save([
+        {
+          published: 1,
+          name: 'any_value_name_from_test_FIRST',
+          description: 'any_value_description_from_test_FIRST',
+          type: 'pdf'
+        },
+        {
+          published: 1,
+          name: 'any_value_name_from_test_SECOND',
+          description: 'any_value_description_from_test_SECOND',
+          type: 'image'
+        }
+      ])
+
+      await sut.deactivate({ id: '2' })
+
+      const findContentResource = await sut.load({ id: '2' })
+
+      expect(findContentResource).toBeTruthy()
+      expect(findContentResource).toEqual({
+        id: 2,
+        published: 0,
+        name: 'any_value_name_from_test_SECOND',
+        description: 'any_value_description_from_test_SECOND',
+        type: 'image',
+        created_at: expect.any(String),
+        updated_at: expect.any(String)
+      })
+    })
+  })
+
   describe('load', () => {
     it('should return a content resource if id exists', async () => {
       await pgContentResourceRepo.save([
