@@ -1,10 +1,13 @@
 export interface DeactivateResourceFeatureInterface {
-  perform: (params: AddContentResourceNamespace.Input) => Promise<AddContentResourceNamespace.Output>
+  perform: (params: DeactivateContentResourceNamespace.Input) => Promise<DeactivateContentResourceNamespace.Output>
 }
 
-export namespace AddContentResourceNamespace {
+export namespace DeactivateContentResourceNamespace {
   export type Input = {
     id: string
   }
-  export type Output = String
+  export type Output = {
+    id: string
+    message: string
+  }
 }
