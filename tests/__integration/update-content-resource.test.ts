@@ -122,7 +122,7 @@ describe('Add content resource', () => {
       })
   })
 
-  it('should update content resource name and no other attribute', async () => {
+  it('should update only the content resource name', async () => {
     const updateContentResourceMutation = {
       query: `mutation Update($updateContentResource: ContentResourceUpdateInput!) {
           update(params: $updateContentResource) {
