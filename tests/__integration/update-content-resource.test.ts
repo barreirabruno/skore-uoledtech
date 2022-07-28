@@ -69,8 +69,8 @@ describe('Add content resource', () => {
     await getConnection().close()
   })
 
-  it('should return 403 if a non ADMIN role try to update a content resource', async () => {
-    await request(app)
+  it('should return 403 if a non ADMIN role try to update a content resource', () => {
+    void request(app)
       .post('/graphql')
       .set('role', 'ADMIN')
       .send(addContentResourceMutation)
