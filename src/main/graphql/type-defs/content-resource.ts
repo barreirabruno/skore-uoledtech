@@ -23,6 +23,10 @@ export default gql`
     id: String!
   }
 
+  input ViewContentResourceInput {
+    id: String!
+  }
+
   type DeactivateContentResource {
     id: String!
     message: String!
@@ -42,5 +46,9 @@ export default gql`
     add (params: ContentResourceInput!): ContentResourceOutput! @auth
     update (params: ContentResourceUpdateInput!): ContentResourceOutput! @auth
     deactivate (params: ContentResourceDeactivateInput!): DeactivateContentResource! @auth
+  }
+
+  extend type Query {
+    viewcontentresource (params: ViewContentResourceInput!): ContentResourceOutput
   }
 `
