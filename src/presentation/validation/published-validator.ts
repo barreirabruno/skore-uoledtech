@@ -7,7 +7,7 @@ export default class PublishedValidator {
   ) {}
 
   validate (): Error | undefined {
-    if (parseInt(this.value) !== 1) {
+    if (this.value !== undefined && parseInt(this.value) !== 1) {
       return new InvalidFieldError(this.fieldName)
     }
     return undefined
