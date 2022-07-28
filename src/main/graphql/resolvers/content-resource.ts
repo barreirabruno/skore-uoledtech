@@ -8,6 +8,9 @@ export default {
     },
     update: async (parent: any, args: any, context: any) => {
       return await apolloServerResolverAdapter(makeAddContentResourceController(), args)
+    },
+    deactivate: async (parent: any, args: any, context: any) => {
+      return await apolloServerResolverAdapter(makeAddContentResourceController(), args)
     }
   }
 }
