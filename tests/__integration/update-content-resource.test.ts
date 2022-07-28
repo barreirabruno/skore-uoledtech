@@ -69,7 +69,7 @@ describe('Add content resource', () => {
     await getConnection().close()
   })
 
-  it('should return 403 if a non ADMIN role try to create a content resource', async () => {
+  it('should return 403 if a non ADMIN role try to update a content resource', async () => {
     await request(app)
       .post('/graphql')
       .set('role', 'ADMIN')
@@ -90,6 +90,35 @@ describe('Add content resource', () => {
         expect(errors[0].extensions).toBeDefined()
         expect(errors[0].extensions.code).toBeDefined()
         expect(errors[0].extensions.code).toBe('FORBIDDEN')
+      })
+  })
+
+  it('should update a content resource successfuly', async () => {
+    await request(app)
+      .post('/graphql')
+      .set('role', 'ADMIN')
+      .send(addContentResourceMutation)
+      .expect(200)
+      .then(async function (response) {
+        return await request(app)
+          .post('/graphql')
+          .set('role', 'ADMIN')
+          .send(updateContentResourceMutation)
+          .expect(200)
+      }).then(function (response) {
+        const { statusCode, body } = response
+        expect(statusCode).toBe(200)
+        expect(body.data).toBeDefined()
+        expect(body.data.update).toBeDefined()
+        expect(body.data.update).toEqual({
+          id: '1',
+          published: 1,
+          name: 'update_name_value_from_integration_test',
+          description: 'update_description_from_integration_test',
+          type: 'image',
+          created_at: expect.any(String),
+          updated_at: expect.any(String)
+        })
       })
   })
 })
