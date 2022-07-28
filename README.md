@@ -49,7 +49,7 @@ Manage and visualize content. There is a simple access level implemented for - *
 ```
 ## Collections and utilities
 Use the curls below to query the server
-**Mutation - add a content resource**
+**Mutation - add a content resource**\
 Mutation input:
 ```
 curl --location --request POST 'http://localhost:3333/graphql' \
@@ -98,7 +98,7 @@ Query output:
 }
 ```
 
-**Mutation - update a content resource**
+**Mutation - update a content resource**\
 Mutation input:
 ```
 curl --location --request POST 'http://localhost:3333/graphql' \
@@ -123,7 +123,7 @@ Mutation output:
 }
 ```
 
-**Mutation - delete a content resource**
+**Mutation - delete a content resource**\
 Mutation input:
 ```
 curl --location --request POST 'http://localhost:3333/graphql' \
