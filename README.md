@@ -7,18 +7,11 @@ Manage and visualize content. There is a simple access level implemented for - *
 **Users** can visualize content resources.
 
 ## Features available
-Find a breaf description of features and curl requests to execute it on terminal or import in your favorite client
 **Administrators features:**
 - [x] Add a content resource
-```
-curl --location --request POST 'http://localhost:3333/graphql' \
---header 'role: ADMIN' \
---header 'Content-Type: application/json' \
---data-raw '{"query":"mutation Add($addContentResource: ContentResourceInput!) {\n    add(params: $addContentResource) {\n        id\n        published\n        name\n        description\n        type\n        created_at\n        updated_at\n    }\n}","variables":{"addContentResource":{"name":"any_name_A","published":1,"description":"any_description_B","type":"string"}}}'
-```
-- [  ] Update a content resource
-- [  ] Delete a code resource
-- [  ] Chek the unique views per resource
+- [x] Update a content resource
+- [x] Delete a code resource
+- [ ] Check the unique views per resource
 
 **Users features:**
 - [  ] Visualize content resources
@@ -51,7 +44,30 @@ curl --location --request POST 'http://localhost:3333/graphql' \
 ```
   npm run test:coverage
 ```
-
 ## Collections and utilities
+Use the curls below to query the server
+**add a content resource**
+```
+curl --location --request POST 'http://localhost:3333/graphql' \
+--header 'role: ADMIN' \
+--header 'Content-Type: application/json' \
+--data-raw '{"query":"mutation Add($addContentResource: ContentResourceInput!) {\n    add(params: $addContentResource) {\n        id\n        published\n        name\n        description\n        type\n        created_at\n        updated_at\n    }\n}","variables":{"addContentResource":{"name":"any_readme_name","description":"any_readme_description","type":"pdf","published":1}}}'
+```
+
+**update a content resource**
+```
+curl --location --request POST 'http://localhost:3333/graphql' \
+--header 'role: ADMIN' \
+--header 'Content-Type: application/json' \
+--data-raw '{"query":"mutation Update($updateContentResource: ContentResourceUpdateInput!) {\n    update(params: $updateContentResource) {\n        id\n        published\n        name\n        description\n        type\n        created_at\n        updated_at\n    }\n}","variables":{"updateContentResource":{"name":"update_any_readme_name","description":"update_any_readme_description","type":"pdf"}}}'
+```
+
+**delete a content resource**
+```
+curl --location --request POST 'http://localhost:3333/graphql' \
+--header 'role: ADMIN' \
+--header 'Content-Type: application/json' \
+--data-raw '{"query":"mutation Deactivate($deactivateContentResource: ContentResourceDeactivateInput!) {\n    deactivate(params: $deactivateContentResource) {\n        id\n        message\n    }\n}","variables":{"deactivateContentResource":{"id":"1"}}}'
+```
 
 ## Software design/architecture
