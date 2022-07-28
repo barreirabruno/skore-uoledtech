@@ -60,15 +60,13 @@ describe('Add Content Resource service', () => {
 
     const spyContentResourceRepositorySave = jest.spyOn(contentResourceRepository, 'save')
 
-    const sut = await addContentResourceService.perform({
+    await addContentResourceService.perform({
       id: 'any_id_from_database',
       name: '**[UPDATE][UPDATE][UPDATE][UPDATE]**',
       published: 1,
       description: '**[UPDATE]****[UPDATE]****[UPDATE]',
       type: 'pdf'
     })
-
-    console.log('[SUT RESPONSE]: ', sut)
 
     expect(spyContentResourceRepositorySave).toHaveBeenCalled()
     expect(spyContentResourceRepositorySave).toHaveBeenCalledTimes(1)
