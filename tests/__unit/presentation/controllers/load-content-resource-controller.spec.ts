@@ -1,20 +1,6 @@
 import LoadContentResourceService from '@/data/load-content-resource-service'
-import { Controller } from '@/presentation/controllers'
-import { HttpResponse, success } from '@/presentation/helpers'
+import LoadContentResourceController from '@/presentation/controllers/load-content-resource-controller'
 import { mock, MockProxy } from 'jest-mock-extended'
-
-class LoadContentResourceController extends Controller {
-  constructor (
-    private readonly loadContentResourceService: LoadContentResourceService
-  ) {
-    super()
-  }
-
-  async perform (httpRequest: any): Promise<HttpResponse<any>> {
-    const loadContentResource = await this.loadContentResourceService.perform(httpRequest)
-    return success(loadContentResource)
-  }
-}
 
 describe('Load content resource controller', () => {
   let loadContentResourceService: MockProxy<LoadContentResourceService>
