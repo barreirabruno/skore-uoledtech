@@ -6,7 +6,7 @@ export interface LoadContentResourceRepositoryInterface {
 
 export namespace LoadTransactionRepositoryNamespace {
   export type Input = {
-    id: string
+    id?: string
   }
   export type Output = null | undefined | {
     id: string
@@ -26,17 +26,17 @@ export interface SaveContentResourceRepositoryInterface {
 export namespace SaveTransactionRepositoryNamespace {
   export type Input = {
     id?: string
-    published: number
-    name: string
-    description: string
-    type: string
+    published?: number
+    name?: string
+    description?: string
+    type?: string
   }
   export type Output = {
-    id: string
-    published: number
-    name: string
-    description: string
-    type: string
+    id?: string
+    published?: number
+    name?: string
+    description?: string
+    type?: string
     created_at: string
     updated_at: string
   } | InternalServerError | undefined
