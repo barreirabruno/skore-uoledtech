@@ -209,8 +209,8 @@ Some patterns I kept in mind while coding this app
   - Main layer - It enable controllers to log server error by extending the controller default behavior.
 
 - Builder
-  - Presentation folder - It creates the validator steps.
+  - Presentation folder - It creates the validation steps on controllers.
 
 - Adapter
-  - Infra folder - Allow Controllers to interact with Apollo server, it receives a Controller via param and args to use it together.
+  - Infra folder - It Allows Controllers to interact with Apollo server, it receives a Controller via param and args to use it together.
 
