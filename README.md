@@ -49,35 +49,98 @@ Manage and visualize content. There is a simple access level implemented for - *
 ```
 ## Collections and utilities
 Use the curls below to query the server
-**add a content resource**
+**Mutation - add a content resource**\
+Mutation input:
 ```
 curl --location --request POST 'http://localhost:3333/graphql' \
 --header 'role: ADMIN' \
 --header 'Content-Type: application/json' \
 --data-raw '{"query":"mutation Add($addContentResource: ContentResourceInput!) {\n    add(params: $addContentResource) {\n        id\n        published\n        name\n        description\n        type\n        created_at\n        updated_at\n    }\n}","variables":{"addContentResource":{"name":"any_readme_name","description":"any_readme_description","type":"pdf","published":1}}}'
 ```
+Mutation output:
+```
+{
+    "data": {
+        "add": {
+            "id": "1",
+            "published": 1,
+            "name": "any_readme_name",
+            "description": "any_readme_description",
+            "type": "pdf",
+            "created_at": "2022-07-28T21:14:47.105Z",
+            "updated_at": "2022-07-28T21:14:47.105Z"
+        }
+    }
+}
+```
 
-**view a content resource**
+**Query - view a content resource**\
+Query input:
 ```
 curl --location --request POST 'http://localhost:3333/graphql' \
 --header 'Content-Type: application/json' \
 --data-raw '{"query":"query ViewContentResource($viewContentResource: ViewContentResourceInput!) {\n    viewcontentresource(params: $viewContentResource) {\n        id\n        published\n        name\n        description\n        type\n        created_at\n        updated_at\n    }\n}","variables":{"viewContentResource":{"id":"1"}}}'
 ```
+Query output:
+```
+{
+    "data": {
+        "add": {
+            "id": "1",
+            "published": 1,
+            "name": "any_readme_name",
+            "description": "any_readme_description",
+            "type": "pdf",
+            "created_at": "2022-07-28T21:14:47.105Z",
+            "updated_at": "2022-07-28T21:14:47.105Z"
+        }
+    }
+}
+```
 
-**update a content resource**
+**Mutation - update a content resource**\
+Mutation input:
 ```
 curl --location --request POST 'http://localhost:3333/graphql' \
 --header 'role: ADMIN' \
 --header 'Content-Type: application/json' \
---data-raw '{"query":"mutation Update($updateContentResource: ContentResourceUpdateInput!) {\n    update(params: $updateContentResource) {\n        id\n        published\n        name\n        description\n        type\n        created_at\n        updated_at\n    }\n}","variables":{"updateContentResource":{"name":"update_any_readme_name","description":"update_any_readme_description","type":"pdf"}}}'
+--data-raw '{"query":"mutation Update($updateContentResource: ContentResourceUpdateInput!) {\n    update(params: $updateContentResource) {\n        id\n        published\n        name\n        description\n        type\n        created_at\n        updated_at\n    }\n}","variables":{"updateContentResource":{"id":"1","name":"update_any_readme_name","description":"update_any_readme_description","type":"pdf"}}}'
+```
+Mutation output:
+```
+{
+    "data": {
+        "update": {
+            "id": "1",
+            "published": 1,
+            "name": "update_any_readme_name",
+            "description": "update_any_readme_description",
+            "type": "pdf",
+            "created_at": "2022-07-28T21:14:47.105Z",
+            "updated_at": "2022-07-28T21:15:27.579Z"
+        }
+    }
+}
 ```
 
-**delete a content resource**
+**Mutation - delete a content resource**\
+Mutation input:
 ```
 curl --location --request POST 'http://localhost:3333/graphql' \
 --header 'role: ADMIN' \
 --header 'Content-Type: application/json' \
 --data-raw '{"query":"mutation Deactivate($deactivateContentResource: ContentResourceDeactivateInput!) {\n    deactivate(params: $deactivateContentResource) {\n        id\n        message\n    }\n}","variables":{"deactivateContentResource":{"id":"1"}}}'
+```
+Mutation output:
+```
+{
+    "data": {
+        "deactivate": {
+            "id": "1",
+            "message": "Content deactivated successfully"
+        }
+    }
+}
 ```
 
 ## Software design/architecture
