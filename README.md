@@ -81,3 +81,73 @@ curl --location --request POST 'http://localhost:3333/graphql' \
 ```
 
 ## Software design/architecture
+
+This application uses clean architecture approach.
+Follow the diagram below and the teardown section for better understanding.
+Altough the majority of the system entities are represented in the diagram below the arrows only show a single use case of the system, the other use cases follow the same flow. Folder names are not that important, what matters is the instance flow of the application.
+
+![Application architecute diagram](/arch-skore-api.png)
+
+- **Domain**
+  - Inner layer
+  - Doesn't depends on any other layer
+  - Defines the system entities:
+    - Content Resource
+  - Defines the system use cases:
+    - Add-content-resource-service
+    - Load-content-resource-service
+    - Deactivate-content-resource-service
+    - View-content-resource-service
+
+- **Data**
+  - Depends on domain layer
+  - In this layer use cases are called **application services**
+  - Add content resource service
+    - Content resource repository
+  - Deactivate content resource service
+    - Content resource repositor
+  - Load content resource service
+    - Content resource repositor
+
+- **Infra**
+  - Provides tools (such as package implementations) for data and presentation layer
+  - Implements external libraries:
+    - database
+      - Postgres Repository
+    - graphql
+      - Apollo server
+    - queue
+      - rabbitmq
+    - logger
+      - Pinno
+
+- **Presentation**
+  - Depends on data layer
+  - Implements abstract class Controller
+    - Controller has perform method, it will be implemented by specific controllers
+  - Implements add content resource Controller
+  - Implements deactivate content resource Controller
+  - Implements load content resource Controller
+
+- **Main**
+  - Depends on presentation, infra and data layer
+  - This layer will bootstrap all necessary instances to fulfill dependency injection and return a webserver
+  - Graphql resolvers uses factory methods to bootstrap controllers
+  - Apollo server starts instance is starts here
+
+### Patterns
+
+Some patterns I kept in mind while coding this app
+
+- Factory
+  - Main folder - It creates controllers with their dependencies, like database repository instance.
+
+- Decorator
+  - Main layer - It enable controllers to log server error by extending the controller default behavior.
+
+- Builder
+  - Presentation folder - It creates the validator steps.
+
+- Adapter
+  - Infra folder - Allow Controllers to interact with Apollo server, it receives a Controller via param and args to use it together.
+
